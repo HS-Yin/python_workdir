@@ -17,22 +17,30 @@ def move(pos_x1,pos_y1,pos_x2,pos_y2):
     else: 
         if(flag in select1): 
             if("a" in select1): 
-                if(pos1_x==pos2_x): 
-                    for i in range(pos1_y,pos2_y): 
+                if(pos1_x==pos2_x):
+                    if(pos1_y>pos2_y):
+                        m=-1
+                    else:
+                        m=1 
+                    for i in range(pos1_y,pos2_y,m): 
                         if(a[pos1_x,i] != "  "): 
                             if(i==pos1_y or i==pos2_y): 
                                 continue 
                             flag_1 = 1
                             break
                 elif(pos1_y==pos2_y): 
-                    for i in range(pos1_x,pos2_x): 
+                    if(pos1_x>pos2_x):
+                        m=-1
+                    else:
+                        m=1 
+                    for i in range(pos1_x,pos2_x,m): 
                         if(a[i,pos1_y] !="  "): 
                             if(i==pos1_x or i==pos2_x): 
                                 continue 
                             flag_1 = 1 
                             break 
-                        else: 
-                            flag_1 = 1 
+                else: 
+                    flag_1 = 1 
 
             elif("b" in select1): 
                 if(abs(pos2_x-pos1_x) == 2 and abs(pos2_y-pos1_y) == 1): 
@@ -89,7 +97,11 @@ def move(pos_x1,pos_y1,pos_x2,pos_y2):
 
             elif("f" in select1): 
                 if(select2 == "  "): 
-                    if(pos1_x==pos2_x): 
+                    if(pos1_x==pos2_x):
+                        if(pos1_y>pos2_y):
+                            m=-1
+                        else:
+                            m=1 
                         for i in range(pos1_y,pos2_y):
                             if(a[pos1_x,i] != "  "):
                                 if(i==pos1_y or i==pos2_y):
@@ -97,6 +109,10 @@ def move(pos_x1,pos_y1,pos_x2,pos_y2):
                                 flag_1 = 1
                                 break
                     elif(pos1_y==pos2_y):
+                        if(pos1_x>pos2_x):
+                            m=-1
+                        else:
+                            m=1
                         for i in range(pos1_x,pos2_x):
                             if(a[i,pos1_y]!="  "):
                                 if(i==pos1_x or i==pos2_x):
@@ -121,8 +137,8 @@ def move(pos_x1,pos_y1,pos_x2,pos_y2):
                                 num =num +1
                         if(num != 1):
                             flag_1 = 1
-                    else:
-                        flag_1 =1
+                else:
+                    flag_1 =1
 
             elif("g" in select1):
                 if((flag =="0"and pos_y2<pos_y1) or (flag =="1" and pos_y2>pos_y1)):
@@ -134,7 +150,8 @@ def move(pos_x1,pos_y1,pos_x2,pos_y2):
                     pass
                 else:
                     flag_1 = 1
-            if(flag_1 ==0):
+
+            if(flag_1 == 0):
                 a[pos1_x,pos1_y] = "  "
                 a[pos2_x,pos2_y] = select1
                 if(flag =="0"):
@@ -165,14 +182,25 @@ if __name__ == "__main__":
     flag = "0" 
     print("player "+flag+" turn")
     print(a)
-    move(1,10,1,9) 
-    move(1,1,1,2) 
-    move(2,10,3,8) 
-    move(2,1,3,3) 
-    move(3,10,4,8) 
-    move(3,1,4,3) 
-    move(4,10,5,9) 
-    move(4,1,5,2)
+    move(1,1,1,5) 
+    while True:
+        scanf = input("请输入你要走的棋步（格式：x1,y1,x2,y2）：")
+        x1,y1,x2,y2 = map(int,scanf.split(","))
+        if x1==0 and y1==0 and x2==0 and y2==0:
+            break
+        move(x1,y1,x2,y2)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
