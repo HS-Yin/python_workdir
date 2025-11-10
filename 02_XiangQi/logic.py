@@ -1,5 +1,4 @@
 import numpy as np
-
 class XiangQi:
     def __init__(self):
         self.board = np.zeros((10, 9), dtype=int)
@@ -7,7 +6,6 @@ class XiangQi:
         self.current_player = 1  # 1 for Red, -1 for Black
         self.game_over = False
         self.winner = None
-        print(self.board)
     def reset_board(self):
         # Initialize the board with starting positions
         self.board[0] = [1, 2, 3, 4, 5, 4, 3, 2, 1]
@@ -26,7 +24,6 @@ class XiangQi:
       
         piece = self.board[pos_x, pos_y]
         target = self.board[mov_x, mov_y]
-        print(piece,target)
         # Check if move is within bounds
         if all (0 <= x <=9 for x in (pos_x, pos_y, mov_x, mov_y)) == False:
             print("warning: out of range")
@@ -142,7 +139,8 @@ class XiangQi:
         self.board[pos_x, pos_y] = 0
         self.current_player *= -1
         return
-                
+    def get_board(self):
+        return self.board.copy()        
 if __name__ == "__main__":
     game = XiangQi()
     while game.game_over == False:
