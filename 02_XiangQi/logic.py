@@ -19,7 +19,7 @@ class XiangQi:
         self.board[8] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
         self.board[9] = [-1, -2, -3, -4, -5, -4, -3, -2, -1]
     def step(self, move):
-        pos_y, pos_x, mov_y, mov_x = move
+        pos_x, pos_y, mov_x, mov_y = move
         pos_x, pos_y, mov_x, mov_y = int(pos_x), int(pos_y), int(mov_x), int(mov_y)
       
         piece = self.board[pos_x, pos_y]

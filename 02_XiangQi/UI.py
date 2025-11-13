@@ -70,9 +70,9 @@ class XiangQiUI(QWidget):
                 piece = self._board[i][j]
                 if piece:
                     cx = margin + j * cell_w
-                    cy = margin + i * cell_h
+                    cy = margin + (9-i) * cell_h
                     radius = min(cell_w,cell_h)*0.4
-                    painter.setBrush(Qt.black if piece > 0 else Qt.red)
+                    painter.setBrush(Qt.black if piece < 0 else Qt.red)
                     painter.drawEllipse(cx-radius/2, cy-radius/2, radius, radius)
                     painter.setPen(Qt.white)
                     painter.drawText(cx-radius/2, cy-radius/2, radius, radius, Qt.AlignCenter, str(abs(piece)))
@@ -87,7 +87,7 @@ class XiangQiUI(QWidget):
         x = event.position().x()
         y = event.position().y()
         col = round((x - margin) / cell_w)
-        row = round((y - margin) / cell_h)
+        row = self.rows-round((y - margin) / cell_h)
         if row<0 or row>=self.rows or col<0 or col>=self.cols:
             return
         if self.selected_piece is None:
