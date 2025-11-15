@@ -29,8 +29,7 @@ class XiangQiUI(QWidget):
         cell_w = board_w / (cols - 1)
         cell_h = board_h / (rows - 1)
 
-        # painter.fillRect(self.rect(),QColor(245, 222, 179))
-        painter.fillRect(self.rect(),QColor(255, 255, 255))
+        painter.fillRect(self.rect(),QColor(245, 222, 179))
 
         pen = QPen(QColor(60, 40, 20))
         pen.setWidth(2)
