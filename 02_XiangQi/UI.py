@@ -86,7 +86,7 @@ class XiangQiUI(QWidget):
         x = event.position().x()
         y = event.position().y()
         col = round((x - margin) / cell_w)
-        row = self.rows-round((y - margin) / cell_h)
+        row = self.rows-1-round((y - margin) / cell_h)
         if row<0 or row>=self.rows or col<0 or col>=self.cols:
             return
         if self.selected_piece is None:

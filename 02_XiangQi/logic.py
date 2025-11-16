@@ -19,6 +19,7 @@ class XiangQi:
         self.board[8] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
         self.board[9] = [-1, -2, -3, -4, -5, -4, -3, -2, -1]
     def step(self, move):
+        
         pos_x, pos_y, mov_x, mov_y = move
         pos_x, pos_y, mov_x, mov_y = int(pos_x), int(pos_y), int(mov_x), int(mov_y)
       
@@ -77,13 +78,13 @@ class XiangQi:
                 return
         elif piece == 4 or piece == -4:
             if abs(pos_x - mov_x) == 1 and abs(pos_y - mov_y) == 1:
-                if mov_x not in [4,5,6]:
+                if mov_y not in [4,5,6]:
                     print("warning: invalid move")
                     return
-                if mov_y not in [0,1,2] and self.current_player == 1:
+                if mov_x not in [0,1,2] and self.current_player == 1:
                     print("warning: invalid move")
                     return
-                if mov_y not in [7,8,9] and self.current_player == -1:
+                if mov_x not in [7,8,9] and self.current_player == -1:
                     print("warning: invalid move")
                     return
             else:
@@ -91,13 +92,13 @@ class XiangQi:
                 return
         elif piece == 5 or piece == -5:
             if (abs(pos_x - mov_x) == 1 and pos_y == mov_y) or (pos_x == mov_x and abs(pos_y - mov_y) == 1):
-                if mov_x not in [4,5,6]:
+                if mov_y not in [4,5,6]:
                     print("warning: invalid move")
                     return
-                if mov_y not in [0,1,2] and self.current_player == 1:
+                if mov_x not in [0,1,2] and self.current_player == 1:
                     print("warning: invalid move")
                     return
-                if mov_y not in [7,8,9] and self.current_player == -1:
+                if mov_x not in [7,8,9] and self.current_player == -1:
                     print("warning: invalid move")
                     return
             else:
@@ -138,7 +139,7 @@ class XiangQi:
         self.board[mov_x, mov_y] = piece 
         self.board[pos_x, pos_y] = 0
         self.current_player *= -1
-        return
+        return 1
     def get_board(self):
         return self.board.copy()        
 if __name__ == "__main__":
