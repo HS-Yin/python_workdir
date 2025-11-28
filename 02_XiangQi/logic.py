@@ -139,7 +139,13 @@ class XiangQi:
         self.board[mov_x, mov_y] = piece 
         self.board[pos_x, pos_y] = 0
         self.current_player *= -1
-        return 1
+        # final win
+        if target == 5:
+            return 2
+        elif target == -5:
+            return -2
+        else:
+            return 1 
     def get_board(self):
         return self.board.copy()        
 if __name__ == "__main__":

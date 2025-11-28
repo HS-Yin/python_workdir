@@ -3,10 +3,13 @@ from PySide6.QtWidgets import QApplication
 from UI import XiangQiUI
 from logic import XiangQi
 def step_move(move):
-    print(move)
-    success = logic.step(move)
-    if success:
+    logic_return = logic.step(move)
+    if logic_return:
         ui.set_board(logic.get_board())
+    if logic_return == 2:
+        ui.show_win("黑")
+    elif logic_return == -2:
+        ui.show_win("红")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

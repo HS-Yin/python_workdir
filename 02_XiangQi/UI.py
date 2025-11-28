@@ -1,5 +1,5 @@
 import sys 
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QMessageBox
 from PySide6.QtGui import QPainter, QColor, QPen
 from PySide6.QtCore import Qt, QRectF
 
@@ -90,7 +90,7 @@ class XiangQiUI(QWidget):
         if row<0 or row>=self.rows or col<0 or col>=self.cols:
             return
         if self.selected_piece is None:
-            print("first_press",row, col, self._board[row][col])
+            # print("first_press",row, col, self._board[row][col])
             if self._board[row][col] is not None:
                 self.selected_piece = (row, col)  
         else:
@@ -100,6 +100,11 @@ class XiangQiUI(QWidget):
                 self.move_callback((pos_x, pos_y, mov_x, mov_y))
             self.selected_piece = None
         self.update()
+    def show_win(self, winner):
+        msg = QMessageBox()
+        msg.setWindowTitle("对局结束")
+        msg.setText(f"{winner} 获胜！")
+        msg.exec()
         
 if __name__ == "__main__":
     app = QApplication(sys.argv)
