@@ -4,12 +4,17 @@ from UI import XiangQiUI
 from logic import XiangQi
 def step_move(move):
     logic_return = logic.step(move)
+    print(move)
     if logic_return:
         ui.set_board(logic.get_board())
     if logic_return == 2:
         ui.show_win("黑")
+        logic.reset_board()
+        ui.set_board(logic.get_board())
     elif logic_return == -2:
         ui.show_win("红")
+        logic.reset_board()
+        ui.set_board(logic.get_board())
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

@@ -11,6 +11,23 @@ class XiangQiUI(QWidget):
         self.cols = 9
         self.selected_piece = None
         self._board = [[None for _ in range(self.cols)] for _ in range(self.rows)]
+        self.piece_map = {
+                            0: "",
+                            1: "车",
+                            2: "马",
+                            3: "相",
+                            4: "士",
+                            5: "帅",
+                            6: "炮",
+                            7: "兵",
+                            -1: "车",
+                            -2: "马",
+                            -3: "象",
+                            -4: "士",
+                            -5: "将",
+                            -6: "炮",
+                            -7: "卒"
+                        }
     
     def set_board(self, board_state):
         self._board = board_state
@@ -74,7 +91,7 @@ class XiangQiUI(QWidget):
                     painter.setBrush(Qt.black if piece < 0 else Qt.red)
                     painter.drawEllipse(cx-radius/2, cy-radius/2, radius, radius)
                     painter.setPen(Qt.white)
-                    painter.drawText(cx-radius/2, cy-radius/2, radius, radius, Qt.AlignCenter, str(abs(piece)))
+                    painter.drawText(cx-radius/2, cy-radius/2, radius, radius, Qt.AlignCenter, str(self.piece_map[piece]))
         painter.end()
     def mousePressEvent(self, event):
         if self._board is None:

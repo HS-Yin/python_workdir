@@ -8,6 +8,7 @@ class XiangQi:
         self.winner = None
     def reset_board(self):
         # Initialize the board with starting positions
+        self.current_player = 1
         self.board[0] = [1, 2, 3, 4, 5, 4, 3, 2, 1]
         self.board[1] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
         self.board[2] = [0, 6, 0, 0, 0, 0, 0, 6, 0]
@@ -123,14 +124,14 @@ class XiangQi:
                 print("warning: invalid move")
                 return
         elif piece == 7 or piece == -7:
-            if pos_x == mov_x and abs(pos_y - mov_y) == 1:
-                indy = 1 if mov_y > pos_y else -1
-                if indy * self.current_player < 0:
+            if pos_y == mov_y and abs(pos_x - mov_x) == 1:
+                indx = 1 if mov_x > pos_x else -1
+                if indx * self.current_player < 0:
                     print("warning: invalid move")
                     return
-            elif abs(pos_x - mov_x) == 1 and pos_y == mov_y:
-                if (self.current_player == 1 and pos_y < 5) or (self.current_player == -1 and pos_y > 4):
-                    print("warning: invalid move")
+            elif abs(pos_y - mov_y) == 1 and pos_x == mov_x:
+                if (self.current_player == 1 and pos_x < 5) or (self.current_player == -1 and pos_x > 4):
+                    print("warning: 卒未过河")
                     return
         else:
             print("warning: invalid piece")
