@@ -28,83 +28,64 @@ class XiangQi:
         target = self.board[mov_x, mov_y]
         # Check if move is within bounds
         if all (0 <= x <=9 for x in (pos_x, pos_y, mov_x, mov_y)) == False:
-            print("warning: out of range")
-            return
+            return "提示: 超出范围"
         # check basic move rules
         if piece == 0:
-            print("warning: no piece at position")
-            return
+            return 0
         if int(piece) * int(target) > 0:
-            print("warning: invalid move")
-            return
+            return "提示: 无效走棋"
         if (self.current_player == 1 and piece < 0) or (self.current_player == -1 and piece > 0):
-            print("warning: not your turn")
-            return
+            return "提示：不是你的回合"
         # Check piece-specific move rules
         if piece == 1 or piece == -1:
             if pos_x == mov_x and pos_y != mov_y:
                 indy = 1 if mov_y > pos_y else -1
                 for y in range(pos_y + indy, mov_y, indy):
                     if self.board[pos_x, y] != 0:
-                        print("warning: invalid move")
-                        return
+                        return "提示: 车走棋错误"
             elif pos_y == mov_y and pos_x != mov_x:
                 indx = 1 if mov_x > pos_x else -1
                 for x in range(pos_x + indx, mov_x, indx):
                     if self.board[x, pos_y] != 0:
-                        print("warning: invalid move")
-                        return
+                        return "提示: 车走棋错误"
             else:
-                print("warning: invalid move")
-                return
+                return "提示: 车走棋错误"
         elif piece == 2 or piece == -2:
             if abs(pos_x - mov_x) == 2 and abs(pos_y - mov_y) == 1:
                 if self.board[(pos_x + mov_x) // 2, pos_y] != 0:
-                    print("warning: invalid move")
-                    return
+                    return "提示: 马走棋错误"
             elif abs(pos_x - mov_x) == 1 and abs(pos_y - mov_y) == 2:
                 if self.board[pos_x, (pos_y + mov_y) // 2] != 0:
-                    print("warning: invalid move")
-                    return
+                    return "提示: 马走棋错误"
             else:
-                print("warning: invalid move")
+                return "提示: 马走棋错误"
                 return
         elif piece == 3 or piece == -3:
             if abs(pos_x - mov_x) == 2 and abs(pos_y - mov_y) == 2:
                 if self.board[(pos_x + mov_x) // 2, (pos_y + mov_y) // 2] != 0:
-                    print("warning: invalid move")
-                    return
+                    return "提示: 相/象走棋错误"
             else:
-                print("warning: invalid move")
-                return
+                return "提示: 相/象走棋错误"
         elif piece == 4 or piece == -4:
             if abs(pos_x - mov_x) == 1 and abs(pos_y - mov_y) == 1:
                 if mov_y not in [4,5,6]:
-                    print("warning: invalid move")
-                    return
+                    return "提示: 士走棋错误"
                 if mov_x not in [0,1,2] and self.current_player == 1:
-                    print("warning: invalid move")
-                    return
+                    return "提示: 士走棋错误"
                 if mov_x not in [7,8,9] and self.current_player == -1:
-                    print("warning: invalid move")
-                    return
+                   return "提示: 士走棋错误"
             else:
-                print("warning: invalid move")
-                return
+                return "提示: 士走棋错误"
         elif piece == 5 or piece == -5:
             if (abs(pos_x - mov_x) == 1 and pos_y == mov_y) or (pos_x == mov_x and abs(pos_y - mov_y) == 1):
                 if mov_y not in [4,5,6]:
-                    print("warning: invalid move")
-                    return
+                    return "提示: 帅/将走棋错误"
                 if mov_x not in [0,1,2] and self.current_player == 1:
-                    print("warning: invalid move")
-                    return
+                    return "提示: 帅/将走棋错误"
                 if mov_x not in [7,8,9] and self.current_player == -1:
-                    print("warning: invalid move")
-                    return
+                    return "提示: 帅/将走棋错误"
             else:
-                print("warning: invalid move")
-                return
+                return "提示: 帅/将走棋错误"
         elif piece == 6 or piece == -6:
             mid_num = 0
             if pos_x == mov_x and pos_y != mov_y:
@@ -118,24 +99,19 @@ class XiangQi:
                     if self.board[x, pos_y] != 0:
                         mid_num = mid_num + 1
             else:
-                print("warning: invalid move")
-                return
+                return "提示: 炮走棋错误"
             if not (mid_num == 1 and target != 0) and not (mid_num == 0 and target == 0):
-                print("warning: invalid move")
-                return
+                return "提示: 炮走棋错误"
         elif piece == 7 or piece == -7:
             if pos_y == mov_y and abs(pos_x - mov_x) == 1:
                 indx = 1 if mov_x > pos_x else -1
                 if indx * self.current_player < 0:
-                    print("warning: invalid move")
-                    return
+                    return "提示: 兵/卒走棋错误"
             elif abs(pos_y - mov_y) == 1 and pos_x == mov_x:
                 if (self.current_player == 1 and pos_x < 5) or (self.current_player == -1 and pos_x > 4):
-                    print("warning: 卒未过河")
-                    return
+                    return "提示: 兵/卒走棋错误"
         else:
-            print("warning: invalid piece")
-            return
+            return "提示: 走棋错误"
         # Execute the move
         self.board[mov_x, mov_y] = piece 
         self.board[pos_x, pos_y] = 0

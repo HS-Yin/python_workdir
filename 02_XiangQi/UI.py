@@ -4,6 +4,10 @@ from PySide6.QtCore import Qt
 
 from XiangQiBoard import XiangQiBoard
 from XiangQiLog import XiangQiLog
+import datetime
+
+def timestamp():
+    return datetime.datetime.now().strftime("[%H:%M:%S] ")
 
 class MainWindow(QMainWindow):
     def __init__(self, logic, parent=None):
@@ -32,15 +36,18 @@ class MainWindow(QMainWindow):
     #走棋判断
     def step_move(self, move):
         result = self.logic.step(move)
-        if result == 0:
-            return
-        self.board.set_board(self.logic.get_board())
-        if result == 2:
-            self.log.add_log("黑方获胜！")
+        if result == 1:
+            self.board.set_board(self.logic.get_board())
+        elif result == 2:
+            self.log.add_log(timestamp()+"黑方获胜！")
             self.restart_game()
         elif result == -2:
-            self.log.add_log("红方获胜！")
+            self.log.add_log(timestamp()+"红方获胜！")
             self.restart_game()
+        elif type(result) == str:
+            self.log.add_log(timestamp()+result)
+        else:
+            return
     
     # 重新开始
     def restart_game(self):
